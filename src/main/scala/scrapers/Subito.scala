@@ -21,18 +21,10 @@ class Subito(
 
   /**
    *
-   * @return an iterator of the pages containing the records collection
-   */
-  def collectionPagesIterator: Iterator[String] =
-    Iterator.range(1, maxCount + 1)
-      .map(i => baseUrl(i.toString))
-
-  /**
-   *
    * @param html a string containing html elements
    * @return the record in the list page html
    */
-  def extractRecords(html: String): List[HomeRecord] = {
+  override def extractRecords(html: String): List[HomeRecord] = {
     val doc = browser.parseString(html)
     val elements = doc >> elementList("article")
     elements.map(extractRecord)
@@ -43,7 +35,7 @@ class Subito(
    * @param e
    * @return parse Home Record
    */
-  def extractRecord(e: Element): HomeRecord = {
+  override def extractRecord(e: Element): HomeRecord = {
     val cssSelector = "div.item_list_section.item_description > h2 > a"
 
     HomeRecord(
@@ -65,7 +57,7 @@ class Subito(
    * @param hr
    * @return extract the elements from a detail page
    */
-  def extractDetails(html: String, hr: HomeRecord): HomeRecord = {
+  override def extractDetails(html: String, hr: HomeRecord): HomeRecord = {
     val doc = browser.parseString(html)
 
     val table = doc >> elementList("div.summary > table > tbody > tr")

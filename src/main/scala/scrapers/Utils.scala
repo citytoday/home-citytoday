@@ -2,6 +2,8 @@ package scrapers
 
 import java.net.URL
 
+import org.joda.time.DateTime
+
 /**
  * Created by fabiofumarola on 13/08/16.
  */
@@ -17,4 +19,6 @@ object Utils {
       val base = new URL(absolute)
       new URL(base, relative).toExternalForm
   }
+
+  def nowToString() = DateTime.now.toString("YYYY-MM-dd HH:mm::ss")
 }

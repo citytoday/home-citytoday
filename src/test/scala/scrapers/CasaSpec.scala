@@ -5,22 +5,22 @@ import scalaj.http.Http
 /**
   * Created by fabiofumarola on 12/08/16.
   */
-class SubitoSpec extends UnitSpec {
+class CasaSpec extends UnitSpec {
 
-  val subito = new Subito()
+  val casa = new Casa()
 
-  "A Subito scraper" should "generate the correct number of urls" in {
+  "A Casa scraper" should "generate the correct number of urls" in {
 
-    val urls = subito.collectionPagesIterator.toList
-    urls should have length subito.maxCount
+    val urls = casa.collectionPagesIterator.toList
+    urls should have length casa.maxCount
   }
 
 
   it should "extract records " in {
-    val url = subito.collectionPagesIterator.next()
+    val url = casa.collectionPagesIterator.next()
     val html = Http(url).asString.body
 
-    val records = subito.extractRecords(html)
+    val records = casa.extractRecords(html)
 
 //    records.foreach(pprint.log(_))
 
@@ -28,15 +28,15 @@ class SubitoSpec extends UnitSpec {
   }
 
   it should "extract details for a record" in {
-    val url = subito.collectionPagesIterator.next()
+    val url = casa.collectionPagesIterator.next()
     val html = Http(url).asString.body
-    val record = subito.extractRecords(html).head
+    val record = casa.extractRecords(html).head
 
     val recHtml = Http(record.url.get).asString.body
 
-    val detailedRecord = subito.extractDetails(recHtml,record)
+    val detailedRecord = casa.extractDetails(recHtml,record)
 
-    pprint.log(detailedRecord)
+    pprint.log2(detailedRecord)
 
     detailedRecord.mapDetails.size should be >= 3
     detailedRecord.description shouldBe defined

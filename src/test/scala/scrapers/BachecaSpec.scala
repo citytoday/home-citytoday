@@ -5,22 +5,21 @@ import scalaj.http.Http
 /**
   * Created by fabiofumarola on 12/08/16.
   */
-class SubitoSpec extends UnitSpec {
+class BachecaSpec extends UnitSpec {
 
-  val subito = new Subito()
+  val bacheca = new Bacheca()
 
-  "A Subito scraper" should "generate the correct number of urls" in {
+  "A Bacheca scraper" should "generate the correct number of urls" in {
 
-    val urls = subito.collectionPagesIterator.toList
-    urls should have length subito.maxCount
+    val urls = bacheca.collectionPagesIterator.toList
+    urls should have length bacheca.maxCount
   }
 
-
   it should "extract records " in {
-    val url = subito.collectionPagesIterator.next()
+    val url = bacheca.collectionPagesIterator.next()
     val html = Http(url).asString.body
 
-    val records = subito.extractRecords(html)
+    val records = bacheca.extractRecords(html)
 
 //    records.foreach(pprint.log(_))
 
@@ -28,13 +27,13 @@ class SubitoSpec extends UnitSpec {
   }
 
   it should "extract details for a record" in {
-    val url = subito.collectionPagesIterator.next()
+    val url = bacheca.collectionPagesIterator.next()
     val html = Http(url).asString.body
-    val record = subito.extractRecords(html).head
+    val record = bacheca.extractRecords(html).head
 
     val recHtml = Http(record.url.get).asString.body
 
-    val detailedRecord = subito.extractDetails(recHtml,record)
+    val detailedRecord = bacheca.extractDetails(recHtml,record)
 
     pprint.log(detailedRecord)
 

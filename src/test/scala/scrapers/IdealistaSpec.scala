@@ -18,15 +18,15 @@ class IdealistaSpec extends UnitSpec {
   }
 
 
-  it should "extract 30 records " in {
+  it should "extract records " in {
     val url = idealista.collectionPagesIterator.next()
     val html = Http(url).asString.body
 
     val records = idealista.extractRecords(html)
 
-    records.foreach(println)
+//    records.foreach(pprint.log(_))
 
-    records should have size 30
+    records.size should be > 0
   }
 
   it should "extract details for a record" in {
@@ -38,7 +38,7 @@ class IdealistaSpec extends UnitSpec {
 
     val detailedRecord = idealista.extractDetails(recHtml,record)
 
-    println(detailedRecord)
+    pprint.log(detailedRecord)
 
     detailedRecord.mapDetails.size should be >= 3
     detailedRecord.description shouldBe defined

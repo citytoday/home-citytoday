@@ -17,5 +17,8 @@ object models {
     phone: Option[String],
     mapDetails: Map[String,String] = Map.empty,
     description: Option[String] = None,
-    publisher: Option[String] = None)
+    publisher: Option[String] = None,
+    imagesUrl: List[String] = List.empty)
+
+  //mq e numero locali
 }

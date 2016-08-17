@@ -14,13 +14,19 @@ trait HomeScraper {
     * @return a function that take a String as parameter and return a String
     */
   def baseUrl: String => String
+
   def maxCount: Int
+
   val browser = JsoupBrowser()
 
-  def collectionPagesIterator: Iterator[String]
+  def collectionPagesIterator: Iterator[String] =
+    Iterator.range(1, maxCount + 1)
+      .map(i => baseUrl(i.toString))
 
   def extractRecords(html: String): List[HomeRecord]
+
   def extractRecord(e: Element): HomeRecord
+
   def extractDetails(html: String, hr: HomeRecord): HomeRecord
 
 }

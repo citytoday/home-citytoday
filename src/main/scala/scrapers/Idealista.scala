@@ -3,6 +3,7 @@ package scrapers
 import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
 import net.ruippeixotog.scalascraper.dsl.DSL._
 import net.ruippeixotog.scalascraper.model.Element
+import org.joda.time.DateTime
 import scrapers.models._
 
 object Idealista {
@@ -14,11 +15,7 @@ object Idealista {
  */
 class Idealista(
   val baseUrl: String => String = Idealista.urlTransformer,
-  val maxCount: Int = 628) extends HomeScraper {
-
-  override def collectionPagesIterator: Iterator[String] =
-    Iterator.range(1, maxCount + 1)
-      .map(i => baseUrl(i.toString))
+  val maxCount: Int = 100) extends HomeScraper {
 
   override def extractRecords(html: String): List[HomeRecord] = {
     val doc = browser.parseString(html)
@@ -37,7 +34,7 @@ class Idealista(
         .map(r => Utils.makeUrlAbsolute(absoluteUrl, r)),
       price = e >?> text("div > div > div.item-info-container > div.row.price-row > span.item-price"),
       category = None,
-      dateTime = None,
+      dateTime = Some(Utils.nowToString),
       location = None,
       phone = e >?> text("div > div > div.item-info-container > div.item-toolbar > div.item-toolbar-contact > span"))
   }
