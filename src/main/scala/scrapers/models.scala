@@ -5,7 +5,7 @@ package scrapers
  */
 object models {
 
-  case class HomeRecord(
+  case class RawHomeRecord(
     id: Option[String],
     src: String,
     title: Option[String],
@@ -15,10 +15,24 @@ object models {
     dateTime: Option[String],
     location: Option[String],
     phone: Option[String],
-    mapDetails: Map[String,String] = Map.empty,
+    mapDetails: Map[String, String] = Map.empty,
     description: Option[String] = None,
     publisher: Option[String] = None,
     imagesUrl: List[String] = List.empty)
+
+  case class HomeRecord(
+    ref: RawHomeRecord,
+    rooms: Int,
+    square: Int,
+    floor: Short,
+    price: Double,
+    address: String,
+    latLon: (Double, Double),
+    advertiser: String,
+    energeticClass: Char,
+    undergrounds: Seq[String],
+    district: String,
+    expenses: Int)
 
   //mq e numero locali
 }

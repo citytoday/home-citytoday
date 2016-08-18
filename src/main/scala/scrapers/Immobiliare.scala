@@ -17,16 +17,16 @@ object Immobiliare {
  */
 class Immobiliare(
   val baseUrl: String => String = Immobiliare.urlTransformer,
-  val maxCount: Int = 100) extends HomeScraper {
+  val maxCount: Int = 30) extends HomeScraper {
 
-  override def extractRecords(html: String): List[HomeRecord] = {
+  override def extractRecords(html: String): List[RawHomeRecord] = {
     val doc = browser.parseString(html)
     val elements = doc >> elementList("div.wrapper_riga_annuncio")
     elements.map(extractRecord)
   }
 
-  override def extractRecord(e: Element): HomeRecord = {
-    HomeRecord(
+  override def extractRecord(e: Element): RawHomeRecord = {
+    RawHomeRecord(
     id = e >?> attr("id")("div.box_centrali_bianchi.riga_annuncio"),
       src = "Immobiliare",
       title = e >?> text("div.annuncio_title"),
@@ -40,7 +40,7 @@ class Immobiliare(
     )
   }
 
-  override def extractDetails(html: String, hr: HomeRecord): HomeRecord = {
+  override def extractDetails(html: String, hr: RawHomeRecord): RawHomeRecord = {
     val doc = browser.parseString(html)
 
     val keys = doc >> texts("dl > dt")

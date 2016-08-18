@@ -15,9 +15,9 @@ object Idealista {
  */
 class Idealista(
   val baseUrl: String => String = Idealista.urlTransformer,
-  val maxCount: Int = 100) extends HomeScraper {
+  val maxCount: Int = 30) extends HomeScraper {
 
-  override def extractRecords(html: String): List[HomeRecord] = {
+  override def extractRecords(html: String): List[RawHomeRecord] = {
     val doc = browser.parseString(html)
     val elements = doc >> elementList("article")
     elements.map(extractRecord).filter(_.id.nonEmpty)
@@ -25,8 +25,8 @@ class Idealista(
 
   private val absoluteUrl = baseUrl("1")
 
-  override def extractRecord(e: Element): HomeRecord = {
-    HomeRecord(
+  override def extractRecord(e: Element): RawHomeRecord = {
+    RawHomeRecord(
       id = e >?> attr("data-adid")("div"),
       src = "idealista",
       title = e >?> text("div > div > div.item-info-container > a"),
@@ -39,7 +39,7 @@ class Idealista(
       phone = e >?> text("div > div > div.item-info-container > div.item-toolbar > div.item-toolbar-contact > span"))
   }
 
-  override def extractDetails(html: String, hr: HomeRecord): HomeRecord = {
+  override def extractDetails(html: String, hr: RawHomeRecord): RawHomeRecord = {
     val doc = browser.parseString(html)
 
     val elements = (doc >> elementList("#details > div")) ++

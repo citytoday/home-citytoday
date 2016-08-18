@@ -37,7 +37,7 @@ class BachecaSpec extends UnitSpec {
 
     pprint.log(detailedRecord)
 
-    detailedRecord.mapDetails.size should be >= 3
+    detailedRecord.mapDetails.size should be > 0
     detailedRecord.description shouldBe defined
     detailedRecord.publisher shouldBe defined
 

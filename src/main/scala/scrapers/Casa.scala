@@ -15,9 +15,9 @@ object Casa {
  */
 class Casa(
   val baseUrl: String => String = Casa.urlTransformer,
-  val maxCount: Int = 100) extends HomeScraper {
+  val maxCount: Int = 30) extends HomeScraper {
 
-  override def extractRecords(html: String): List[HomeRecord] = {
+  override def extractRecords(html: String): List[RawHomeRecord] = {
     val doc = browser.parseString(html)
     val elements = doc >> elementList("ul.listing-list > li")
     elements.map(extractRecord)
@@ -25,8 +25,8 @@ class Casa(
 
   val absoluteUrl = baseUrl("1")
 
-  override def extractRecord(e: Element): HomeRecord = {
-    HomeRecord(
+  override def extractRecord(e: Element): RawHomeRecord = {
+    RawHomeRecord(
       id = e >?> attr("data-reactid")("li")
         .map(e => e.substring(e.indexOf("$") + 1)),
       src = "Casa",
@@ -41,7 +41,7 @@ class Casa(
     )
   }
 
-  override def extractDetails(html: String, hr: HomeRecord): HomeRecord = {
+  override def extractDetails(html: String, hr: RawHomeRecord): RawHomeRecord = {
     val doc = browser.parseString(html)
 
     val mapDetails = (doc >> elementList("div.characteristics > div > ul > li"))

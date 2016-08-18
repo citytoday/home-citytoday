@@ -15,16 +15,16 @@ object Bacheca {
   * Created by fabiofumarola on 17/08/16.
   */
 class Bacheca(val baseUrl: String => String = Bacheca.urlTransformer,
-              val maxCount: Int = 100) extends HomeScraper {
+              val maxCount: Int = 30) extends HomeScraper {
 
-  override def extractRecords(html: String): List[HomeRecord] = {
+  override def extractRecords(html: String): List[RawHomeRecord] = {
     val doc = browser.parseString(html)
     val elements = doc >> elementList("div.bk-annuncio-item")
     elements.map(extractRecord)
   }
 
-  override def extractRecord(e: Element): HomeRecord = {
-    HomeRecord(
+  override def extractRecord(e: Element): RawHomeRecord = {
+    RawHomeRecord(
       id = e >?> attr("data-id")("div"),
       src = "Bacheca",
       title = e >?> text("h3.bk-annuncio-title"),
@@ -37,13 +37,12 @@ class Bacheca(val baseUrl: String => String = Bacheca.urlTransformer,
     )
   }
 
-  override def extractDetails(html: String, hr: HomeRecord): HomeRecord = {
+  override def extractDetails(html: String, hr: RawHomeRecord): RawHomeRecord = {
     val doc = browser.parseString(html)
 
     val mapDetails = (doc >> elementList("table.bk-dett-meta > tbody > tr > td"))
       .filter(_.children.nonEmpty)
       .map {e =>
-
         val key = e >> text("td > strong")
         val value = e >> text("td > span")
         key -> value

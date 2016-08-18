@@ -4,6 +4,8 @@ import java.net.URL
 
 import org.joda.time.DateTime
 
+import scalaj.http.BaseHttp
+
 /**
  * Created by fabiofumarola on 13/08/16.
  */
@@ -22,3 +24,7 @@ object Utils {
 
   def nowToString() = DateTime.now.toString("YYYY-MM-dd HH:mm::ss")
 }
+
+object CHttp extends BaseHttp (
+  userAgent = "citytoday.eu/1.0"
+)

@@ -2,7 +2,7 @@ package scrapers
 
 import net.ruippeixotog.scalascraper.browser.JsoupBrowser
 import net.ruippeixotog.scalascraper.model.Element
-import scrapers.models.HomeRecord
+import scrapers.models.RawHomeRecord
 
 /**
   * Created by fabiofumarola on 12/08/16.
@@ -23,10 +23,10 @@ trait HomeScraper {
     Iterator.range(1, maxCount + 1)
       .map(i => baseUrl(i.toString))
 
-  def extractRecords(html: String): List[HomeRecord]
+  def extractRecords(html: String): List[RawHomeRecord]
 
-  def extractRecord(e: Element): HomeRecord
+  def extractRecord(e: Element): RawHomeRecord
 
-  def extractDetails(html: String, hr: HomeRecord): HomeRecord
+  def extractDetails(html: String, hr: RawHomeRecord): RawHomeRecord
 
 }

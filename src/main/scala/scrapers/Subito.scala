@@ -15,7 +15,7 @@ object Subito {
  */
 class Subito(
   val baseUrl: String => String = Subito.urlTransformer,
-  val maxCount: Int = 100) extends HomeScraper {
+  val maxCount: Int = 30) extends HomeScraper {
 
   private val absoluteUrl = baseUrl("1")
 
@@ -24,7 +24,7 @@ class Subito(
    * @param html a string containing html elements
    * @return the record in the list page html
    */
-  override def extractRecords(html: String): List[HomeRecord] = {
+  override def extractRecords(html: String): List[RawHomeRecord] = {
     val doc = browser.parseString(html)
     val elements = doc >> elementList("article")
     elements.map(extractRecord)
@@ -35,10 +35,10 @@ class Subito(
    * @param e
    * @return parse Home Record
    */
-  override def extractRecord(e: Element): HomeRecord = {
+  override def extractRecord(e: Element): RawHomeRecord = {
     val cssSelector = "div.item_list_section.item_description > h2 > a"
 
-    HomeRecord(
+    RawHomeRecord(
       id = e >?> attr("name")(cssSelector),
       src = "subito",
       title = e >?> attr("title")(cssSelector),
@@ -57,7 +57,7 @@ class Subito(
    * @param hr
    * @return extract the elements from a detail page
    */
-  override def extractDetails(html: String, hr: HomeRecord): HomeRecord = {
+  override def extractDetails(html: String, hr: RawHomeRecord): RawHomeRecord = {
     val doc = browser.parseString(html)
 
     val table = doc >> elementList("div.summary > table > tbody > tr")
