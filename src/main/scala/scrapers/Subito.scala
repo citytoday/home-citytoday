@@ -3,7 +3,7 @@ package scrapers
 import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
 import net.ruippeixotog.scalascraper.dsl.DSL._
 import net.ruippeixotog.scalascraper.model.Element
-import scrapers.models._
+import eu.citytoday.messages._
 
 object Subito {
   val urlTransformer = (value: String) =>
@@ -14,8 +14,7 @@ object Subito {
  * Created by fabiofumarola on 24/07/16.
  */
 class Subito(
-  val baseUrl: String => String = Subito.urlTransformer,
-  val maxCount: Int = 30) extends HomeScraper {
+  val baseUrl: String => String = Subito.urlTransformer) extends HomeScraper {
 
   private val absoluteUrl = baseUrl("1")
 

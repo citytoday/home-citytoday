@@ -4,7 +4,7 @@ import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
 import net.ruippeixotog.scalascraper.dsl.DSL._
 import net.ruippeixotog.scalascraper.model.Element
 import org.joda.time.DateTime
-import scrapers.models._
+import eu.citytoday.messages._
 
 
 object Immobiliare {
@@ -16,8 +16,7 @@ object Immobiliare {
  * Created by fabiofumarola on 17/08/16.
  */
 class Immobiliare(
-  val baseUrl: String => String = Immobiliare.urlTransformer,
-  val maxCount: Int = 30) extends HomeScraper {
+  val baseUrl: String => String = Immobiliare.urlTransformer) extends HomeScraper {
 
   override def extractRecords(html: String): List[RawHomeRecord] = {
     val doc = browser.parseString(html)

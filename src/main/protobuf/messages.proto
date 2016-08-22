@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package eu.citytoday;
+
+import "scalapb/scalapb.proto";
+import "google/protobuf/wrappers.proto";
+
+option (scalapb.options) = {
+  primitive_wrappers: true
+};
+
+message RawHomeRecord {
+    google.protobuf.StringValue id = 1;
+    string src = 2;
+    google.protobuf.StringValue title = 3;
+    google.protobuf.StringValue url = 4;
+    google.protobuf.StringValue price = 5;
+    google.protobuf.StringValue category = 6;
+    google.protobuf.StringValue dateTime = 7;
+    google.protobuf.StringValue location = 8;
+    google.protobuf.StringValue phone = 9;
+    map<string, string> mapDetails = 10;
+    google.protobuf.StringValue description = 11;
+    google.protobuf.StringValue publisher = 12;
+    repeated string imagesUrl = 13;
+}
+
+message HomeRecord {
+    RawHomeRecord ref = 1;
+    int64 price = 2;
+    int32 rooms = 3;
+    int32 squareMeters = 4;
+    int32 floor = 5;
+    google.protobuf.StringValue address = 6;
+    Pin position = 7;
+    google.protobuf.StringValue advertiser = 8;
+    google.protobuf.StringValue energeticClass = 9;
+    repeated string undergrounds = 10;
+    google.protobuf.StringValue district = 11;
+    int32 expenses = 12;
+}
+
+message Pin {
+    double lat = 1;
+    double lon = 2;
+}
+
+

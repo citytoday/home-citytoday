@@ -4,7 +4,7 @@ import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
 import net.ruippeixotog.scalascraper.dsl.DSL._
 import net.ruippeixotog.scalascraper.model.Element
 import org.joda.time.DateTime
-import scrapers.models._
+import eu.citytoday.messages._
 
 object Idealista {
   val urlTransformer = (value: String) => s"https://www.idealista.it/vendita-case/milano-milano/lista-$value.htm"
@@ -14,8 +14,7 @@ object Idealista {
  * Created by fabiofumarola on 13/08/16.
  */
 class Idealista(
-  val baseUrl: String => String = Idealista.urlTransformer,
-  val maxCount: Int = 30) extends HomeScraper {
+  val baseUrl: String => String = Idealista.urlTransformer) extends HomeScraper {
 
   override def extractRecords(html: String): List[RawHomeRecord] = {
     val doc = browser.parseString(html)

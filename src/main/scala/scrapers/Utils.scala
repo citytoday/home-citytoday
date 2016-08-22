@@ -25,6 +25,6 @@ object Utils {
   def nowToString() = DateTime.now.toString("YYYY-MM-dd HH:mm::ss")
 }
 
-object CHttp extends BaseHttp (
+object MyHttp extends BaseHttp (
   userAgent = "citytoday.eu/1.0"
 )

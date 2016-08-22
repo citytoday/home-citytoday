@@ -2,7 +2,7 @@ package scrapers
 
 import net.ruippeixotog.scalascraper.browser.JsoupBrowser
 import net.ruippeixotog.scalascraper.model.Element
-import scrapers.models.RawHomeRecord
+import eu.citytoday.messages._
 
 /**
   * Created by fabiofumarola on 12/08/16.
@@ -15,7 +15,7 @@ trait HomeScraper {
     */
   def baseUrl: String => String
 
-  def maxCount: Int
+  def maxCount: Int = 1
 
   val browser = JsoupBrowser()
 

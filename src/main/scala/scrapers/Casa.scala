@@ -2,7 +2,7 @@ package scrapers
 import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
 import net.ruippeixotog.scalascraper.dsl.DSL._
 import net.ruippeixotog.scalascraper.model.Element
-import scrapers.models._
+import eu.citytoday.messages._
 
 
 object Casa {
@@ -13,9 +13,7 @@ object Casa {
 /**
  * Created by fabiofumarola on 17/08/16.
  */
-class Casa(
-  val baseUrl: String => String = Casa.urlTransformer,
-  val maxCount: Int = 30) extends HomeScraper {
+class Casa(val baseUrl: String => String = Casa.urlTransformer) extends HomeScraper {
 
   override def extractRecords(html: String): List[RawHomeRecord] = {
     val doc = browser.parseString(html)
