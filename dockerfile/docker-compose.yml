@@ -1,0 +1,36 @@
+version: '2'
+services:
+  zk:
+    image: rawmind/alpine-zk:3.4.8-16
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+
+  kafka:
+    image: rawmind/alpine-kafka:0.10.0.0-6
+    ports:
+      - "9092:9092"
+      - "7203:7203"
+    links:
+      - zk
+    environment:
+      - KAFKA_DELETE_TOPICS=true
+      - KAFKA_ZK_HOST=zk
+
+  trifecta:
+    image: janschultecom/docker-trifecta
+    ports:
+      - "9000:9000"
+    links:
+      - kafka
+      - zk
+    environment:
+      - ZK_HOST=zk:2181
+
+  elastic:
+    build: ./elasticsearch/
+    # command: elasticsearch -Des.network.host=0.0.0.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"

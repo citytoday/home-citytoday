@@ -16,8 +16,9 @@ libraryDependencies ++= Seq(
   "com.lihaoyi" %% "pprint" % "0.4.1",
   "org.scalactic" %% "scalactic" % "3.0.0",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test",
-  "com.typesafe.akka" %% "akka-slf4j" % "2.4.9-RC2",
-  "com.typesafe.akka" %% "akka-stream" % "2.4.9-RC2",
-  "com.typesafe.akka" %% "akka-http-core" % "2.4.9-RC2"
+  "com.typesafe.akka" %% "akka-slf4j" % "2.4.9",
+  "com.typesafe.akka" %% "akka-stream" % "2.4.9",
+  "com.typesafe.akka" %% "akka-http-core" % "2.4.9",
+  "com.typesafe.akka" %% "akka-stream-kafka" % "0.11-RC1"
 )
     
